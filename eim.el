@@ -43,6 +43,7 @@
 (eval-when-compile
   (require 'cl))
 (require 'help-mode)
+(require 'popup)
 
 (defvar eim-version "2.4")
 
@@ -749,7 +750,7 @@ beginning of line"
                                 (make-string (/ (- (string-width eim-guidance-str) pos) 2) (decode-char 'ucs #x2501))
                                 "\n"
                                 (substring eim-guidance-str (+ pos 2)))))
-              (eim-show-tooltip eim-guidance-str))
+              (eim-show-popup eim-guidance-str))
           (message "%s" eim-guidance-str))))))
 
 (defun eim-make-guidance-frame ()
@@ -897,6 +898,9 @@ to the position of point in the selected window."
         (edges (window-inside-pixel-edges window)))
     (cons (+ (car x-y) (car  edges))
           (+ (cdr x-y) (cadr edges)))))
+
+(defun eim-show-popup (text)
+  (popup-tip text))
 
 (defface eim-tooltip-face '((((class color)) :inherit tooltip))
   "face to display items"
